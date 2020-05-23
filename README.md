@@ -1,5 +1,5 @@
 # React + Webpack
-_This practice defining a react app structure without using 'create-react-app' and configuring webpack._
+_This practice defining a react app structure without using 'create-react-app' and configures webpack._
 
 ## Built with 🛠️
 
