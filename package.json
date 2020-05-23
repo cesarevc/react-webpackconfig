@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "npx webpack-dev-server",
     "build": "webpack --mode production",
-    "dev": "webpack --mode development",
-    "server": "npx webpack-dev-server -d"
+    "dev": "webpack --mode development"
   },
   "keywords": [],
-  "author": "",
+  "author": "cesarevc",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.8.4",

@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.[contentHash].js'
     },
     devServer: {
         port: 8030
@@ -17,8 +17,15 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)/,
+                exclude: /node_modules/,
                 use: ['babel-loader'],
-                exclude: /node_modules/
+                // use: {
+                //     loader: 'babel-loader',
+                //     options: {
+                //         presets: ['@babel/preset-react', '@babel/preset-env'],
+                //         plugins: ['@babel/plugin-proposal-class-properties']           
+                //     }
+                // }
             },
             {
                 use: ['style-loader','css-loader'],
