@@ -43,4 +43,4 @@ npm run dev
 **Free Software, Hell Yeah!**
 
 ---
-⌨️ with ❤️ by [cesarevc](https://github.com/cesarevc) 😊
+⌨️ with ❤️ by [cesarevc](https://github.com/cesarevc) 
