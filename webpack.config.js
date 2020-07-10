@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+
 
 module.exports = {
     entry: './src/index.js',
@@ -7,29 +10,44 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.[contentHash].js'
     },
+    optimization: {
+        splitChunks: {
+			chunks: 'all',
+			name: false,
+		},
+		runtimeChunk: true,
+
+    },
     devServer: {
         port: 8030
-    },
-    resolve:{
-        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)/,
                 exclude: /node_modules/,
-                use: ['babel-loader'],
-                // use: {
-                //     loader: 'babel-loader',
-                //     options: {
-                //         presets: ['@babel/preset-react', '@babel/preset-env'],
-                //         plugins: ['@babel/plugin-proposal-class-properties']           
-                //     }
-                // }
+                use: { 
+                    loader: 'babel-loader'
+                },
+                
             },
             {
-                use: ['style-loader','css-loader'],
-                test: /\.css$/
+                test: /\.(jpg|jpeg|png|gif)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: { name: 'img/[name].[ext]', limit: 10000 },
+                    },
+                ],
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2|svg|otf)$/,
+                use: [{ loader: 'file-loader' }],
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             {
                 test: /\.scss$/,
@@ -55,7 +73,23 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/index.html',
+            hash: true,
+			chunksSortMode: 'none',
+			minify: {
+                removeComments: true,
+				collapseWhitespace: true,
+			},
         }),
-    ]
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+			chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+        }),
+        new MomentLocalesPlugin({
+            localesToKeep: ['es'],
+		})
+    ],
+    resolve:{
+        extensions: ['.js', '.jsx']
+    }
 }
