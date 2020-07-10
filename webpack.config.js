@@ -1,4 +1,5 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
@@ -7,8 +8,8 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.[contentHash].js'
+        path: path.join(__dirname, 'public'),
+        // filename: 'bundle.[contentHash].js'
     },
     optimization: {
         splitChunks: {
@@ -16,10 +17,9 @@ module.exports = {
 			name: false,
 		},
 		runtimeChunk: true,
-
     },
     devServer: {
-        port: 8030
+        port: 7700
     },
     module: {
         rules: [
@@ -72,6 +72,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             hash: true,
