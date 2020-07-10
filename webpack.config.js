@@ -8,8 +8,8 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.join(__dirname, 'public'),
-        // filename: 'bundle.[contentHash].js'
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.[contentHash].js'
     },
     optimization: {
         splitChunks: {
